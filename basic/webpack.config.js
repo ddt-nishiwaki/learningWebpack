@@ -39,7 +39,7 @@ module.exports = {
      * 'none'
      *      デフォルトの最適化オプションを無効にします。
      */
-    mode: 'production',
+    mode: 'development',
     // バンドルの起点となるファイルを指定します
     entry: './src/index.js',
     // バンドルファイル出力設定を行います
