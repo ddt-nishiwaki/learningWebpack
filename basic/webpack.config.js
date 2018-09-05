@@ -46,5 +46,20 @@ module.exports = {
     output: {
         path: `${__dirname}/dist`, // 出力先
         filename: 'main.js' // バンドルファイル名
+    },
+    /**
+     * webpack-dev-serverの設定です
+     * サーバーなのでコンテンツの規定パスの設定が必要となります。
+     * open オプションを指定することで設定したディレクトリの index.html をブラウザで開くようになります。
+     * 
+     *      webpack-dev-server --open
+     * 
+     * サーバーを起動するとソースコードを監視して
+     * 変更があれば自動で再ビルドし、ブラウザをリロードします。
+     * コマンドは package.json にショートカットを設定します
+     */
+    devServer: {
+        contentBase: './dist'
     }
+
 }
