@@ -9,6 +9,20 @@
  * 
  *      npx webpack
  * 
+ * NOTE:
+ * webpack コマンドは webpack --config webpack.config.js と同等です。
+ * 設定ファイルの名称を変える必要がある場合は明示的に --config オプションを指定してください。
+ *
+ *
+ * 基本的な設定項目
+ *
+ *      mode: バンドルの最適化設定を指定
+ *      entry: エントリーポイントを指定
+ *      output: 出力設定
+ *          path: 出力先ディレクトリを指定
+ *          filename: 出力ファイル名を指定
+ *
+ *
  */
 module.exports = {
     /*
