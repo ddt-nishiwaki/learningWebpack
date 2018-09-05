@@ -39,13 +39,13 @@ module.exports = {
      * 'none'
      *      デフォルトの最適化オプションを無効にします。
      */
-    mode: 'development',
+    mode: 'production',
     // バンドルの起点となるファイルを指定します
     entry: './src/index.js',
     // バンドルファイル出力設定を行います
     output: {
         path: `${__dirname}/dist`, // 出力先
-        filename: 'main.js' // バンドルファイル名
+        filename: 'prod_main.js' // バンドルファイル名
     },
     /**
      * webpack-dev-serverの設定です
