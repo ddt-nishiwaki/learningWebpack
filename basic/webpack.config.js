@@ -60,6 +60,53 @@ module.exports = {
      */
     devServer: {
         contentBase: './dist'
-    }
+    },
+    /*
+     * ソースマップの利用は mode オプションの切り替えで可能ですが、
+     * エラー出力の精度を上げるといったカスタマイズも可能です。
+     * 設定には devtool オプションを設定します。
+     * 設定値は次の通りです。
+     * 規定値は eval ですが、開発環境用にはもっともオリジナルのソースを得られる eval-source-map の利用が望ましいでしょう
+     * 
+     *   本番環境利用向け
+     *      'none'
+     *          バンドル後のファイルを参照
+     *      'source-map'
+     *          オリジナルのコードを再現し参照
+     *      'hidden-source-map'
+     *          オリジナルのコードを再現し参照
+     *      'nosources-source-map'
+     *          ソースはマップに含まれない
+     *   開発環境利用向け
+     *      'eval'
+     *          モジュール単位に分離されたコードを参照
+     *      'eval-source-map'
+     *          モジュール単位に分離されたコードを参照
+     *          オリジナルのコードを再現し参照
+     *      'cheap-source-map'
+     *          モジュール単位に分離されたコードを参照
+     *          ローダーで変換された結果を参照
+     *      'inline-source-map
+     *          オリジナルのコードを再現し参照
+     *      'cheap-eval-source-map'
+     *          ローダーで変換された結果を参照
+     *          行単位のマッピング
+     *      'cheap-module-eval-source-map'
+     *          オリジナルのコードを再現し参照
+     *          行単位のマッピング
+     *      'cheap-module-source-map'
+     *          オリジナルのコードを再現し参照
+     *          行単位のマッピング
+     *      'inline-cheap-source-map'
+     *          ローダーで変換された結果を参照
+     *          行単位のマッピング
+     *      'inline-cheap-module-source-map'
+     *          オリジナルのコードを再現し参照
+     *          行単位のマッピング
+     */
+    // TODO: ソースマップのコードで日本語が文字化けを起こすので対応方法を検討する
+    // 参考サイト: https://qiita.com/kenfdev/items/0ed70a1692bd2f119b69
+    // 参考サイト: https://github.com/webpack/webpack/issues/1035
+    devtool: 'eval-source-map'
 
 }
