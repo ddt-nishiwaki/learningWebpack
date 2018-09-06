@@ -168,7 +168,69 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            /**
+             * フォントファイルのバンドルには file-loader を利用します。
+             * フォントファイルの拡張子を指定して file-loader を実行するように設定します。
+             */
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    'file-loader'
+                ]
+            },
+            /**
+             * csv,tsvのバンドルには csv-loader を利用します。
+             * NOTE: 書籍に記載ないですが、実行時にpapaparseモジュールがないというエラーが発生したので
+             *       内部的に依存しているようです。papaparse も合わせてインストールしています。
+             */
+            {
+                test: /\.(csv|tsv)$/,
+                use: [
+                    'csv-loader'
+                ]
+            },
+            /**
+             * htmlファイルのバンドルには html-loader を利用します。
+             */
+            {
+                test: /\.(html)$/,
+                use: [
+                    {
+                        loader: 'html-loader',
+                        /**
+                         * オプションは他にもあるので必要に応じて
+                         * GitHubのドキュメントを参照します。
+                         * https://github.com/webpack-contrib/html-loader
+                         */
+                        options: {
+                            /**
+                             * 処理する属性を明示的に指定します
+                             * "タグ名"は全てのタグを対象とする場合に省力可能です。
+                             * ['タグ名:属性名', ... ]
+                             */
+                            attrs: ['img:src', ':data-src'],
+                            /**
+                             * 圧縮オプションです
+                             * 設定値は boolean で指定します。
+                             */
+                            minimize: true
+                        }
+                    }
+                ]
+            },
+            /**
+             * xmlのバンドルには xml-loader を利用します
+             */
+            {
+                test: /\.(xml)$/,
+                use: [
+                    {
+                        loader: 'xml-loader'
+                    }
+                ]
             }
+
         ]
     }
 
