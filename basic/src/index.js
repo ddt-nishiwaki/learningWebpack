@@ -27,4 +27,4 @@ import { APP_NAME, hello, Figure } from './myutil';
 // モジュールのメンバが利用できることを確認する為ブラウザに出力します
 document.write(APP_NAME);
 // 公開されていないメンバへも同モジュールのメソッドからアクセス可能です
-document.wrte(hello());
+document.write(hello());

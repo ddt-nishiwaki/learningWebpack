@@ -45,7 +45,7 @@ module.exports = {
     // バンドルファイル出力設定を行います
     output: {
         path: `${__dirname}/dist`, // 出力先
-        filename: 'main.js' // バンドルファイル名
+        filename: 'prod_main.js' // バンドルファイル名
     },
     /**
      * webpack-dev-serverの設定です
