@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Custom';
+    src: url(998fd50b24f86d4f7307c776191f701d.ttf) format('truetype');
+}
+body {
+    font-family: Custom;
+    font-size: 36px;
+    color: red;
+}
+.sky {
+    background-color: #E0FFFF;
+}
