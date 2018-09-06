@@ -39,13 +39,13 @@ module.exports = {
      * 'none'
      *      デフォルトの最適化オプションを無効にします。
      */
-    mode: 'production',
+    mode: 'development',
     // バンドルの起点となるファイルを指定します
     entry: './src/index.js',
     // バンドルファイル出力設定を行います
     output: {
         path: `${__dirname}/dist`, // 出力先
-        filename: 'prod_main.js' // バンドルファイル名
+        filename: 'main.js' // バンドルファイル名
     },
     /**
      * webpack-dev-serverの設定です
@@ -60,6 +60,74 @@ module.exports = {
      */
     devServer: {
         contentBase: './dist'
+    },
+    /*
+     * ソースマップの利用は mode オプションの切り替えで可能ですが、
+     * エラー出力の精度を上げるといったカスタマイズも可能です。
+     * 設定には devtool オプションを設定します。
+     * 設定値は次の通りです。
+     * 規定値は eval ですが、開発環境用にはもっともオリジナルのソースを得られる eval-source-map の利用が望ましいでしょう
+     * 
+     *   本番環境利用向け
+     *      'none'
+     *          バンドル後のファイルを参照
+     *      'source-map'
+     *          オリジナルのコードを再現し参照
+     *      'hidden-source-map'
+     *          オリジナルのコードを再現し参照
+     *      'nosources-source-map'
+     *          ソースはマップに含まれない
+     *   開発環境利用向け
+     *      'eval'
+     *          モジュール単位に分離されたコードを参照
+     *      'eval-source-map'
+     *          モジュール単位に分離されたコードを参照
+     *          オリジナルのコードを再現し参照
+     *      'cheap-source-map'
+     *          モジュール単位に分離されたコードを参照
+     *          ローダーで変換された結果を参照
+     *      'inline-source-map
+     *          オリジナルのコードを再現し参照
+     *      'cheap-eval-source-map'
+     *          ローダーで変換された結果を参照
+     *          行単位のマッピング
+     *      'cheap-module-eval-source-map'
+     *          オリジナルのコードを再現し参照
+     *          行単位のマッピング
+     *      'cheap-module-source-map'
+     *          オリジナルのコードを再現し参照
+     *          行単位のマッピング
+     *      'inline-cheap-source-map'
+     *          ローダーで変換された結果を参照
+     *          行単位のマッピング
+     *      'inline-cheap-module-source-map'
+     *          オリジナルのコードを再現し参照
+     *          行単位のマッピング
+     */
+    // TODO: ソースマップのコードで日本語が文字化けを起こすので対応方法を検討する
+    // 参考サイト: https://qiita.com/kenfdev/items/0ed70a1692bd2f119b69
+    // 参考サイト: https://github.com/webpack/webpack/issues/1035
+    devtool: 'eval-source-map',
+    /**
+     * ローダーを有効にするには module > rules オプションを設定します。
+     */
+    module: {
+        rules: [
+            {
+                test: /\.css$/, // 拡張子が .css のファイルを対象にします
+                use: [ // マッチしたファイルに対して使用するローダーを設定します
+                    /**
+                     * 設定したローダーは"下から順に処理されます。
+                     * この場合は css-loader → style-loader の順になります。
+                     * 
+                     * style-loader の箇所は プロジェクトによって使用するローダーを変えます。
+                     * 詳細はGitHub参照 https://github.com/webpack-contrib/css-loader
+                     */
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
     }
 
 }
