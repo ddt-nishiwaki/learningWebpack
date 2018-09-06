@@ -25,17 +25,41 @@ module.exports = {
                 test: /\.js$/,
                 // npmパッケージは無視する
                 exclude: /node_modules/,
-                // eslintを使用する
-                loader: 'eslint-loader',
-                /**
-                 * ESLintのオプションです
-                 */
-                options: {
-                    // autofixモード(勝手に問題を修復)を無効にする
-                    fix: false,
-                    // エラー発生時にビルドを中断する
-                    failOnError: true,
-                }
+                use: [
+                    /**
+                     * ローダーの設定は"下から順"に処理されます
+                     * babelと組み合わせるならまず構文チェックを行い
+                     * 問題ない場合にトランスパイルするように設定します
+                     */
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            options: {
+                                presets: [
+                                    [
+                                        '@babel/preset-env',
+                                        {
+                                            'modules': false
+                                        }
+                                    ]
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        // eslintを使用する
+                        loader: 'eslint-loader',
+                        /**
+                         * ESLintのオプションです
+                         */
+                        options: {
+                            // autofixモード(勝手に問題を修復)を無効にする
+                            fix: false,
+                            // エラー発生時にビルドを中断する
+                            failOnError: true,
+                        }
+                    }
+                ],
             }
         ]
     }
