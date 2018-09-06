@@ -24,6 +24,7 @@
  *
  *
  */
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
     /*
      * modeオプションは v4.x~から追加されました。
@@ -109,6 +110,20 @@ module.exports = {
     // 参考サイト: https://github.com/webpack/webpack/issues/1035
     devtool: 'eval-source-map',
     /**
+     * プラグイン登録
+     */
+    plugins: [
+        /**
+         * CSSは通常linkタグから読み込んで使うものなので
+         * それを実現するプラグインを導入する
+         */
+        // webpack4 以降に対応していないので, ISSUEの回答にある mini-css-extract-pluginを代わりに登録する
+        // new ExtractTextPlugin.extract({use: 'css-loader'})
+        new MiniCssExtractPlugin({
+            filename: "main.css"
+        })
+    ],
+    /**
      * ローダーを有効にするには module > rules オプションを設定します。
      */
     module: {
@@ -116,6 +131,9 @@ module.exports = {
             {
                 test: /\.css$/, // 拡張子が .css のファイルを対象にします
                 use: [ // マッチしたファイルに対して使用するローダーを設定します
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
                     /**
                      * 設定したローダーは"下から順に処理されます。
                      * この場合は css-loader → style-loader の順になります。
@@ -123,7 +141,7 @@ module.exports = {
                      * style-loader の箇所は プロジェクトによって使用するローダーを変えます。
                      * 詳細はGitHub参照 https://github.com/webpack-contrib/css-loader
                      */
-                    'style-loader',
+                    // style-loaderはstyleタグを直接埋め込むものなので今回は設定から除外する
                     'css-loader'
                 ]
             }
