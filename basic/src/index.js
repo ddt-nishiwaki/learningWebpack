@@ -25,7 +25,15 @@
 import { APP_NAME, hello, Figure } from './myutil';
 // CSSファイルを .jsファイル と同じくインポートします
 import './style.css';
+// 画像ファイルを DataUrl としてインポートします
+import animalPicture from './images/animal.jpg';
 
+// DOMロード完了のタイミングでインポートした画像を挿入する
+window.addEventListener('DOMContentLoaded', function() {
+    let img = new Image();
+    img.src = animalPicture;
+    document.body.appendChild(img);
+});
 // bodyタグにCSSを効かせるため .sky クラスを付与する
 document.getElementsByTagName('body')[0].classList.add('sky');
 // モジュールのメンバが利用できることを確認する為ブラウザに出力します
