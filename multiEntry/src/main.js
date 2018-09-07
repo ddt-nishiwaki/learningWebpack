@@ -1,11 +1,13 @@
 // 静的インポートを行う
 import jQuery from 'jquery';
-// 動的インポートを行う
-import('react').then(function(){
-    console.log('react load complete!')
-});
-// main.jsでは静的に, sub.jsでは動的にインポートを行う
-import lodash from 'lodash';
 
 const $ = jQuery;
+/*
+ * 圧縮オプションでconsole.logを削除する設定にしたので
+ * 確認のために記載します
+ * 
+ * webpackの設定で
+ * mode: 'production' を指定すると
+ * ログが出なくなることを確認します
+ */
 console.log($.fn.jquery);

@@ -18,9 +18,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
  */
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
+/*
+ * コードの圧縮に関しては mode オプションを 'production' に指定すれば実現できますが、
+ * console.log などの不要なコード除去は行いません。
+ * 細かい設定を行うためにプラグインを導入します
+ */
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
 module.exports = {
-    // 開発用モードでバンドルします
-    mode: 'development',
+    /*
+     * 圧縮設定を行うプラグインを検証するため
+     * 本番用モードに切り替えます
+     * これによりコード圧縮が有効になります
+     */
+    mode: 'production',
     /**
      * エントリーポイントを複数設定する場合
      * id: ファイルパス の形式で設定します
@@ -48,11 +59,24 @@ module.exports = {
     devServer: {
         contentBase: './dist'
     },
-    /**
-     * 今回複数のエントリーポイントが同様のライブラリを参照しているので
-     * 共通のライブラリとして切り離す設定を行います
-     */
     optimization: {
+        /**
+         * 圧縮に関する詳細設定を行います
+         * webpackのmodeオプションが'production'のときに有効となります
+         */
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    compress: {
+                        drop_console: true
+                    }
+                }
+            })
+        ],
+        /**
+         * 今回複数のエントリーポイントが同様のライブラリを参照しているので
+         * 共通のライブラリとして切り離す設定を行います
+         */
         splitChunks: {
             // 共通ファイルのバンドル(チャンク)ファイル名
             name: 'commonlib',
@@ -126,7 +150,8 @@ module.exports = {
             filename: "index.html",
             template: "src/index.html"
         }),
-        new CleanWebpackPlugin(['dist'])
+        new CleanWebpackPlugin(['dist']),
+
     ]
 
 }
