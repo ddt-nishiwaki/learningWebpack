@@ -10,6 +10,14 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
  */
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+/*
+ * ファイル名にハッシュ値を含めるようになると
+ * ハッシュ値だけ異なるファイルがどんどん増えていきます。
+ * ビルドする前に出力先フォルダをクリーンアップするのを手作業でやっていては大変なので
+ * 自動化するためのプラグインを導入します
+ */
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+
 module.exports = {
     // 開発用モードでバンドルします
     mode: 'development',
@@ -117,7 +125,8 @@ module.exports = {
             title: '速習webpack',
             filename: "index.html",
             template: "src/index.html"
-        })
+        }),
+        new CleanWebpackPlugin(['dist'])
     ]
 
 }
