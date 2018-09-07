@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+    <!-- HtmlWebpackPluginのテンプレートです                -->
+    <!-- プラグインのオプション設定を挿入することが可能です -->
+    <!-- 構文は次の通りです                                 -->
+    <!--    <%= htmlWebpackPlugin.options.オプション名 %>   -->
+    <!-- NOTE: webpackの設定値にもアクセスできます          -->
+    <!--    <%= webpackConfig.オプション名 %>               -->
+    <html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title><%= htmlWebpackPlugin.options.title %></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <p>Hello, webpack!</p>
+    <!-- バンドルされたファイルはデフォルトでbody閉じタグの直前に挿入されます -->
+    <!-- NOTE: 閉じタグ文字列をパースして置換する仕様なので省略すると挿入されません -->
+    </body>
+</html>
+

@@ -4,6 +4,12 @@
  */ 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+/*
+ * 今まで手作業で作っていたdist/index.htmlですが
+ * これを自動化するプラグインがあるため導入します
+ */
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
     // 開発用モードでバンドルします
     mode: 'development',
@@ -98,8 +104,20 @@ module.exports = {
     plugins: [
         /*
          * バンドル結果を可視化するツールを設定します
+         * => index.htmlの自動生成を確認したいため
+         *    設定を解除します
          */
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin(),
+
+        /*
+         * dist/index.htmlの自動生成を行うプラグインの設定です
+         * NOTE: 任意のプロパティに値を設定することも可能です。
+         */
+        new HtmlWebpackPlugin({
+            title: '速習webpack',
+            filename: "index.html",
+            template: "src/index.html"
+        })
     ]
 
 }
